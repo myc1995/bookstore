@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%String path = request.getContextPath(); %>
+<%
+    String path = request.getContextPath();
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -11,32 +13,32 @@
 <script type="text/javascript" src="<%=path%>/js/jquery.min.js"></script>
 <script type="text/javascript" src="<%=path%>/js/tools.js"></script>
 <script type="text/javascript">
-   $(function(){
-       //失去焦点事件
-       //验证邮箱
-       $("#email").blur(function(){
-           checkEmail("email", "emailTip");
-       });
-       
-       //验证密码
-        $("#password").blur(function(){
-            checkLength("password", "passwordTip", 6);
-        });
-       
-       //验证验证码
-        $("#imageCode").blur(function(){
-            checkNotEmpty("imageCode", "imageCodeTip");
-        });
-       
-       //提交表单前做一次综合验证
-       $("form").submit(function(){
-           var r1 = checkEmail("email", "emailTip");
-           var r2 = checkLength("password", "passwordTip", 6);
-           var r3 = checkNotEmpty("imageCode", "imageCodeTip");
-           
-           return r1 && r2 && r3;
-       });
-   });
+	$(function() {
+		//失去焦点事件
+		//验证邮箱
+		$("#email").blur(function() {
+			checkEmail("email", "emailTip");
+		});
+
+		//验证密码
+		$("#password").blur(function() {
+			checkLength("password", "passwordTip", 6);
+		});
+
+		//验证验证码
+		$("#imageCode").blur(function() {
+			checkNotEmpty("imageCode", "imageCodeTip");
+		});
+
+		//提交表单前做一次综合验证
+		$("form").submit(function() {
+			var r1 = checkEmail("email", "emailTip");
+			var r2 = checkLength("password", "passwordTip", 6);
+			var r3 = checkNotEmpty("imageCode", "imageCodeTip");
+
+			return r1 && r2 && r3;
+		});
+	});
 </script>
 </head>
 <body>
@@ -49,24 +51,27 @@
 			<span>${message }</span>
 		</div>
 
-		<form action="<%=path%>/" method="post">
+		<form action="<%=path%>/user" method="post">
+			<input type='hidden' name="action" value="loginSubmit" />
 			<!-- 用户名 -->
 			<div class="text-input">
 				<label for="email">邮箱</label> <input id="email" name="email"
-					type="text" /> <span id="emailTip"></span>
+					type="text" value="${param.email}" /> <span id="emailTip"></span>
 			</div>
 
 			<!-- 密码 -->
 			<div class="text-input">
 				<label for="password">密码</label> <input id="password"
-					name="password" type="password" /> <span id="passwordTip"></span>
+					name="password" type="password" value="${param.password}" /> <span
+					id="passwordTip"></span>
 			</div>
 
 			<!-- 验证码 -->
+			<!-- System.currentTimeMillis()：避免使用缓存 -->
 			<div class="text-input image-code">
 				<label for="imageCode">验证码</label> <input id="imageCode"
 					name="imageCode" type="text" size="6" /> <img
-					src="<%=path%>/imageCode?t=<%=System.currentTimeMillis() %>"
+					src="<%=path%>/imageCode?t=<%=System.currentTimeMillis()%>"
 					onclick="this.src='<%=path%>/imageCode?t='+new Date().getTime()" />
 				&nbsp;&nbsp;&nbsp; <span id="imageCodeTip"></span>
 			</div>
@@ -81,8 +86,7 @@
 					href="<%=path%>/jsp/userPasswordRetrieve.jsp">找回密码</a>
 			</p>
 
-			<br />
-			<br /> <input type="submit" value="   登   录   " />
+			<br /> <br /> <input type="submit" value="   登   录   " />
 		</form>
 	</div>
 

@@ -4,29 +4,44 @@
 <div class="header">
 	<div class="operate">
 		<ul>
-			<li>您好！xxx&nbsp;&nbsp;</li>
 			<li><a href="${pageContext.request.contextPath }/"> 首页 </a></li>
-			<li><a target="_blank"
-				href="${pageContext.request.contextPath }/jsp/cartList.jsp"> <i
-					class="icon_card"></i>购物车 <span>3</span>
-			</a></li>
-			<li><a target="_blank"
-				href="${pageContext.request.contextPath }/jsp/userLogin.jsp"> 登录
-			</a></li>
-			<li><a target="_blank"
-				href="${pageContext.request.contextPath }/jsp/userRegister.jsp">
-					注册 </a></li>
-			<li><a target="_blank"
-				href="${pageContext.request.contextPath }/jsp/ordersList.jsp">
-					我的订单 <span>2</span>
-			</a></li>
-			<li><a target="_blank"
-				href="${pageContext.request.contextPath }/jsp/addressList.jsp">
-					收货地址 </a></li>
-			<li><a
-				href="${pageContext.request.contextPath }/jsp/userPasswordUpdate.jsp">
-					修改密码 </a></li>
-			<li><a href="#"> 退出 </a></li>
+			<c:if test="${not empty sessionScope.user}">
+				<li>您好！${sessionScope.user.email}&nbsp;&nbsp;</li>
+			</c:if>
+
+			<c:if test="${not empty sessionScope.user}">
+				<li><a target="_blank"
+					href="${pageContext.request.contextPath }/jsp/cartList.jsp"> <i
+						class="icon_card"></i>购物车 <span>3</span>
+				</a></li>
+			</c:if>
+
+			<c:if test="${empty sessionScope.user}">
+				<li><a target="_blank"
+					href="${pageContext.request.contextPath }/user?action=login">
+						登录 </a></li>
+				<li><a target="_blank"
+					href="${pageContext.request.contextPath }/user?action=register">
+						注册 </a></li>
+			</c:if>
+
+			<c:if test="${not empty sessionScope.user}">
+				<li><a target="_blank"
+					href="${pageContext.request.contextPath }/jsp/ordersList.jsp">
+						我的订单 <span>2</span>
+				</a></li>
+				<li><a target="_blank"
+					href="${pageContext.request.contextPath }/jsp/addressList.jsp">
+						收货地址 </a></li>
+				<li><a
+					href="${pageContext.request.contextPath }/jsp/userPasswordUpdate.jsp">
+						修改密码 </a></li>
+				<li><a
+					href="${pageContext.request.contextPath }/user?action=logout">
+						退出 </a></li>
+			</c:if>
+
+
 		</ul>
 	</div>
 </div>
