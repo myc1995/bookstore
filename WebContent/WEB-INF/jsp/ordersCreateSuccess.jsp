@@ -1,4 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%String path = request.getContextPath(); %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -19,15 +20,15 @@
 </script>
 </head>
 <body>
-   <%@include file="/header.jsp"%>
+	<%@include file="/header.jsp"%>
 
-   <div class="main" style="width: 900px;">
-      <div class=success>
-         <a href="<%=path%>/jsp/ordersPay.jsp">订单生成成功，去支付</a>
-         <span>5 </span>  秒后自动跳转到支付页面
-      </div>
-   </div>
+	<div class="main" style="width: 900px;">
+		<div class=success>
+			<a href="<%=path%>/jsp/ordersPay.jsp">订单生成成功，去支付</a> <span>5 </span>
+			秒后自动跳转到支付页面
+		</div>
+	</div>
 
-   <%@include file="/footer.jsp"%>
+	<%@include file="/footer.jsp"%>
 </body>
 </html>

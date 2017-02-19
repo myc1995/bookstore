@@ -1,4 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%String path = request.getContextPath(); %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -40,51 +41,49 @@
 </script>
 </head>
 <body>
-   <%@include file="/header.jsp"%>
+	<%@include file="/header.jsp"%>
 
-   <div class="main"  style="width: 400px;">
-        <div class="message">
-            <p>注册页面</p>
-            <span>${message }</span>
-        </div>
-       <form  action="<%=path%>/user" method="post">
-           
-              <!-- 邮箱 -->
-              <div class="text-input">
-                 <label for="email">邮箱 *</label>
-                 <input id="email" name="email"  type="text"  />
-                 <span id="emailTip" ></span>
-              </div>
-        
-        
-              <!-- 密码 -->
-              <div class="text-input">
-                 <label for="password">密码 *</label>
-                 <input id="password" name="password" type="password"    />
-                 <span id="passwordTip"></span>
-              </div>
+	<div class="main" style="width: 400px;">
+		<div class="message">
+			<p>注册页面</p>
+			<span>${message }</span>
+		</div>
+		<form action="<%=path%>/user" method="post">
 
-              <!-- 重复密码 -->
-              <div class="text-input">
-                 <label for="repassword">重复密码 *</label>
-                 <input id="repassword"  type="password"   />
-                 <span id="repasswordTip"></span>                 
-              </div>
-        
-              <!-- 验证码 -->
-             <div class="text-input  image-code">
-                <label for="imageCode">验证码 *</label>
-                <input id="imageCode" name="imageCode"  type="text"  size="6"/>&nbsp;&nbsp;&nbsp;&nbsp;
-                <img src="<%=path%>/imageCode?t=" <%=System.currentTimeMillis() %> onclick="this.src='<%=path%>/imageCode?t='+new Date().getTime()" />
-                <span style="line-height: 10px;" id="imageCodeTip"></span>
-             </div>
-        
-              <!-- 注册  -->
-              <br/><br/>
-              <input type="submit"  value="   注   册   " />
-      </form>
-   </div>
+			<!-- 邮箱 -->
+			<div class="text-input">
+				<label for="email">邮箱 *</label> <input id="email" name="email"
+					type="text" /> <span id="emailTip"></span>
+			</div>
 
-   <%@include file="/footer.jsp"%>
+
+			<!-- 密码 -->
+			<div class="text-input">
+				<label for="password">密码 *</label> <input id="password"
+					name="password" type="password" /> <span id="passwordTip"></span>
+			</div>
+
+			<!-- 重复密码 -->
+			<div class="text-input">
+				<label for="repassword">重复密码 *</label> <input id="repassword"
+					type="password" /> <span id="repasswordTip"></span>
+			</div>
+
+			<!-- 验证码 -->
+			<div class="text-input  image-code">
+				<label for="imageCode">验证码 *</label> <input id="imageCode"
+					name="imageCode" type="text" size="6" />&nbsp;&nbsp;&nbsp;&nbsp; <img
+					src="<%=path%>/imageCode?t=" <%=System.currentTimeMillis() %>
+					onclick="this.src='<%=path%>/imageCode?t='+new Date().getTime()" />
+				<span style="line-height: 10px;" id="imageCodeTip"></span>
+			</div>
+
+			<!-- 注册  -->
+			<br />
+			<br /> <input type="submit" value="   注   册   " />
+		</form>
+	</div>
+
+	<%@include file="/footer.jsp"%>
 </body>
 </html>

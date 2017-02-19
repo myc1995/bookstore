@@ -1,15 +1,20 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%String path = request.getContextPath(); %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
 <title>管理员主页</title>
-<link rel="stylesheet" type="text/css" href="<%=path%>/easyui/themes/default/easyui.css" />
-<link rel="stylesheet" type="text/css" href="<%=path%>/easyui/themes/icon.css" />
+<link rel="stylesheet" type="text/css"
+	href="<%=path%>/easyui/themes/default/easyui.css" />
+<link rel="stylesheet" type="text/css"
+	href="<%=path%>/easyui/themes/icon.css" />
 <script type="text/javascript" src="<%=path%>/js/jquery.min.js"></script>
-<script type="text/javascript" src="<%=path%>/easyui/jquery.easyui.min.js"></script>
-<script type="text/javascript" src="<%=path%>/easyui/locale/easyui-lang-zh_CN.js"></script>
+<script type="text/javascript"
+	src="<%=path%>/easyui/jquery.easyui.min.js"></script>
+<script type="text/javascript"
+	src="<%=path%>/easyui/locale/easyui-lang-zh_CN.js"></script>
 <script type="text/javascript" src="<%=path%>/js/tools.js"></script>
 <script type="text/javascript">
     //后台系统使用，用来退出系统
@@ -104,38 +109,41 @@
 
 <body class="easyui-layout" style="font-size: large">
 
-    <!--页面头部-->
-    <div data-options="region:'north'" style="height: 70px;">
-        <h1 style="margin-left: 40%; margin-top: 10px; margin-bottom: 5px">图书商城后台管理系统</h1>
-        <a href="#" onclick="logout()" style="float: right; margin-right: 20px">退出</a>
-    </div>
+	<!--页面头部-->
+	<div data-options="region:'north'" style="height: 70px;">
+		<h1 style="margin-left: 40%; margin-top: 10px; margin-bottom: 5px">图书商城后台管理系统</h1>
+		<a href="#" onclick="logout()"
+			style="float: right; margin-right: 20px">退出</a>
+	</div>
 
-    <!--导航栏-->
-    <div data-options="region:'west',title:'导航栏',split:true" style="width: 200px;">
-        <ul class="easyui-tree">
-            <li>
-                <span>网站内容管理</span>
-                <ul>
-                    <li><span><a  onclick="openTab('<%=path%>/jsp/manager/bookList.jsp','图书管理')">图书管理</a></span></li>
-                    <li><span><a  onclick="openTab('<%=path%>/jsp/manager/categoryList.jsp','图书分类管理')">图书分类管理</a></span></li>
-                </ul>
-            </li>
-            <li>
-                <span>系统管理</span>
-                <ul>
-                    <li><span><a  onclick="openTab('<%=path%>/jsp/manager/userPasswordUpdate.jsp','修改密码')">修改密码</a></span></li>
-                </ul>
-            </li>
-        </ul>
-    </div>
+	<!--导航栏-->
+	<div data-options="region:'west',title:'导航栏',split:true"
+		style="width: 200px;">
+		<ul class="easyui-tree">
+			<li><span>网站内容管理</span>
+				<ul>
+					<li><span><a
+							onclick="openTab('<%=path%>/jsp/manager/bookList.jsp','图书管理')">图书管理</a></span></li>
+					<li><span><a
+							onclick="openTab('<%=path%>/jsp/manager/categoryList.jsp','图书分类管理')">图书分类管理</a></span></li>
+				</ul></li>
+			<li><span>系统管理</span>
+				<ul>
+					<li><span><a
+							onclick="openTab('<%=path%>/jsp/manager/userPasswordUpdate.jsp','修改密码')">修改密码</a></span></li>
+				</ul></li>
+		</ul>
+	</div>
 
-    <!--主题区域-->
-    <div data-options="region:'center'" style="background: #eee;">
-        <!--主题区域是个tabs-->
-        <div id="mainTabs" class="easyui-tabs" data-options="fit:true,border:false">
-            <div title="欢迎使用"></div>  <!-- 默认tab页，不可关闭 -->
-        </div>
-    </div>
+	<!--主题区域-->
+	<div data-options="region:'center'" style="background: #eee;">
+		<!--主题区域是个tabs-->
+		<div id="mainTabs" class="easyui-tabs"
+			data-options="fit:true,border:false">
+			<div title="欢迎使用"></div>
+			<!-- 默认tab页，不可关闭 -->
+		</div>
+	</div>
 
 </body>
 </html>

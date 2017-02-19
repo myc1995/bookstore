@@ -1,4 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%String path = request.getContextPath(); %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -60,42 +61,40 @@
 </script>
 </head>
 <body>
-   <%@include file="/header.jsp"%>
+	<%@include file="/header.jsp"%>
 
-   <div class="main"  style="width: 400px;">
+	<div class="main" style="width: 400px;">
 
-        <div class="message">
-            <p>找回密码</p>
-            <span>${message }</span>
-        </div>
-      <form action="#" method="post">
-            
-            <div class="text-input">
-                <label for="email">邮箱*</label>
-                <input id="email" name="email" type="text"  />
-                <span id="emailTip"></span>
-            </div>
-            
-             <!-- 验证码 -->
-             <div class="text-input">
-                <label for="checkCode">验证码*</label>                
-                <input id="checkCode" name="checkCode" type="text" size="6"/>&nbsp;
-                <input id="getCheckCodeBtn" class="get-check-code-btn" type="button"  value="  获取验证码   "/>
-                <span id="checkCodeTip"></span>
-             </div>
-             
-            <!-- 新密码 -->
-            <div class="text-input">
-                <label for="newpassword">新密码*</label>
-                <input id="newpassword" name="newpassword" type="password"  />
-                <span id="newpasswordTip"></span>
-            </div>
-             
-          <br/><br/>
-          <input type="submit"  value="  使用新密码 " />
-      </form>
-   </div>
+		<div class="message">
+			<p>找回密码</p>
+			<span>${message }</span>
+		</div>
+		<form action="#" method="post">
 
-   <%@include file="/footer.jsp"%>
+			<div class="text-input">
+				<label for="email">邮箱*</label> <input id="email" name="email"
+					type="text" /> <span id="emailTip"></span>
+			</div>
+
+			<!-- 验证码 -->
+			<div class="text-input">
+				<label for="checkCode">验证码*</label> <input id="checkCode"
+					name="checkCode" type="text" size="6" />&nbsp; <input
+					id="getCheckCodeBtn" class="get-check-code-btn" type="button"
+					value="  获取验证码   " /> <span id="checkCodeTip"></span>
+			</div>
+
+			<!-- 新密码 -->
+			<div class="text-input">
+				<label for="newpassword">新密码*</label> <input id="newpassword"
+					name="newpassword" type="password" /> <span id="newpasswordTip"></span>
+			</div>
+
+			<br />
+			<br /> <input type="submit" value="  使用新密码 " />
+		</form>
+	</div>
+
+	<%@include file="/footer.jsp"%>
 </body>
 </html>

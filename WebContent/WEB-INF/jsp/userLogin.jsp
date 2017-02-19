@@ -1,5 +1,6 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
-<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c" %>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
+<%@taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%String path = request.getContextPath(); %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -39,53 +40,52 @@
 </script>
 </head>
 <body>
-   <%@include file="/header.jsp"%>
+	<%@include file="/header.jsp"%>
 
-   <div class="main"  style="width: 400px;">
+	<div class="main" style="width: 400px;">
 
-        <div class="message">
-            <p>登录页面</p>
-            <span>${message }</span>
-        </div>
-        
-      <form action="<%=path%>/" method="post">
-          <!-- 用户名 -->
-          <div class="text-input">
-             <label for="email">邮箱</label>
-             <input id="email" name="email" type="text"  />
-             <span id="emailTip"></span>
-          </div>
-    
-          <!-- 密码 -->
-          <div class="text-input">
-             <label for="password">密码</label>
-             <input id="password" name="password" type="password"   />
-             <span id="passwordTip"></span>
-          </div>
-    
-          <!-- 验证码 -->
-          <div class="text-input image-code">
-                <label for="imageCode">验证码</label>
-                <input id="imageCode" name="imageCode" type="text" size="6"/>
-                <img  src="<%=path%>/imageCode?t=<%=System.currentTimeMillis() %>" onclick="this.src='<%=path%>/imageCode?t='+new Date().getTime()" />
-                &nbsp;&nbsp;&nbsp;
-                <span id="imageCodeTip"></span>
-          </div>
-    
-    
-          <!-- 记住我  -->
-          <p>
-             <input  id="rememberMe" name="rememberMe" type="checkbox"  value="yes"/>
-             
-             <label for="rememberMe">记住我</label>&nbsp;&nbsp;&nbsp; &nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; 
-             <a href="<%=path%>/jsp/userPasswordRetrieve.jsp">找回密码</a>
-          </p>
-          
-          <br/><br/>
-          <input type="submit"  value="   登   录   " />
-      </form>
-   </div>
+		<div class="message">
+			<p>登录页面</p>
+			<span>${message }</span>
+		</div>
 
-   <%@include file="/footer.jsp"%>
+		<form action="<%=path%>/" method="post">
+			<!-- 用户名 -->
+			<div class="text-input">
+				<label for="email">邮箱</label> <input id="email" name="email"
+					type="text" /> <span id="emailTip"></span>
+			</div>
+
+			<!-- 密码 -->
+			<div class="text-input">
+				<label for="password">密码</label> <input id="password"
+					name="password" type="password" /> <span id="passwordTip"></span>
+			</div>
+
+			<!-- 验证码 -->
+			<div class="text-input image-code">
+				<label for="imageCode">验证码</label> <input id="imageCode"
+					name="imageCode" type="text" size="6" /> <img
+					src="<%=path%>/imageCode?t=<%=System.currentTimeMillis() %>"
+					onclick="this.src='<%=path%>/imageCode?t='+new Date().getTime()" />
+				&nbsp;&nbsp;&nbsp; <span id="imageCodeTip"></span>
+			</div>
+
+
+			<!-- 记住我  -->
+			<p>
+				<input id="rememberMe" name="rememberMe" type="checkbox" value="yes" />
+
+				<label for="rememberMe">记住我</label>&nbsp;&nbsp;&nbsp;
+				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a
+					href="<%=path%>/jsp/userPasswordRetrieve.jsp">找回密码</a>
+			</p>
+
+			<br />
+			<br /> <input type="submit" value="   登   录   " />
+		</form>
+	</div>
+
+	<%@include file="/footer.jsp"%>
 </body>
 </html>
