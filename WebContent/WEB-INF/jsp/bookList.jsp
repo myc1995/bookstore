@@ -47,13 +47,13 @@
 		<!-- 左侧图书分类导航栏 -->
 		<div class="book_list_left">
 			<ul id="categoryUl">
-				<li><a href="#">全部</a></li>
-				<li><a href="#">小说</a></li>
-				<li><a href="#">文学</a></li>
-				<li><a href="#">传记</a></li>
-				<li><a href="#">艺术</a></li>
-				<li><a href="#">科普/百科</a></li>
-				<li><a href="#">动漫/幽默</a></li>
+				<li><a href="<%=path%>/book?action=list">全部</a></li>
+				<li><a href="<%=path%>/book?action=list&categoryId=1">小说</a></li>
+				<li><a href="<%=path%>/book?action=list&categoryId=2">文学</a></li>
+				<li><a href="<%=path%>/book?action=list&categoryId=3">传记</a></li>
+				<li><a href="<%=path%>/book?action=list&categoryId=4">艺术</a></li>
+				<li><a href="<%=path%>/book?action=list&categoryId=5">科普/百科</a></li>
+				<li><a href="<%=path%>/book?action=list&categoryId=6">动漫/幽默</a></li>
 			</ul>
 		</div>
 		<!-- 右侧主体区域 -->

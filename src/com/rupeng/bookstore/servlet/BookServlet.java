@@ -43,9 +43,24 @@ public class BookServlet extends HttpServlet
         catch (Exception e)
         {
         }
-
+        Integer categoryId = null;
+        try
+        {
+            categoryId = Integer.parseInt(request.getParameter("categoryId"));
+        }
+        catch (Exception e)
+        {
+        }
         Page<Book> page = new Page<Book>(size, targetPage);
-        bookService.list(page);
+        if (categoryId != null)
+        {
+            bookService.list(page, categoryId);
+        }
+        else
+        {
+            bookService.list(page);
+        }
+
         request.setAttribute("page", page);
         request.getRequestDispatcher("/WEB-INF/jsp/bookList.jsp").forward(request, response);
     }

@@ -41,4 +41,34 @@ public class BookDao
         }
     }
 
+    public void list(Page<Book> page, Integer categoryId) throws SQLException
+    {
+        String countSql = "select count(*) from book where categoryId=?";
+        String sql = "select * from book where categoryId=? limit ?,?";
+
+        ResultSet rs = null;
+        ResultSet countRs = null;
+        Connection conn = null;
+        try
+        {
+            conn = JDBCUtils.getConnection();
+            rs = JDBCUtils.executeQuery(conn, sql, categoryId, (page.getTargetPage() - 1) * page.getSize(),
+                    page.getSize());
+            List<Book> bookList = JDBCUtils.packEntityList(Book.class, rs);
+            page.setItems(bookList);
+
+            countRs = JDBCUtils.executeQuery(conn, countSql, categoryId);
+            countRs.next();
+            int totalCount = countRs.getInt(1);
+            int totalPage = (totalCount + page.getSize() - 1) / page.getSize();
+            page.setTotalPage(totalPage);
+
+        }
+        finally
+        {
+            JDBCUtils.closeResultSetAndStatement(rs);
+            JDBCUtils.closeAll(countRs);
+        }
+    }
+
 }

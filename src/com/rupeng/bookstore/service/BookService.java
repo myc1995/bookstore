@@ -19,4 +19,17 @@ public class BookService
             throw new RuntimeException();
         }
     }
+
+    public void list(Page<Book> page, Integer categoryId)
+    {
+        try
+        {
+            bookDao.list(page, categoryId);
+        }
+        catch (Exception e)
+        {
+            throw new RuntimeException();
+        }
+    }
+
 }
