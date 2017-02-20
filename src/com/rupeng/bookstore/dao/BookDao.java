@@ -1,28 +1,43 @@
 package com.rupeng.bookstore.dao;
 
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
 
 import com.rupeng.bookstore.entity.Book;
 import com.rupeng.bookstore.utils.JDBCUtils;
+import com.rupeng.bookstore.utils.Page;
 
 public class BookDao
 {
 
-    public List<Book> list() throws SQLException
+    public void list(Page<Book> page) throws SQLException
     {
-        String sql = "select * from book";
+        String countSql = "select count(*) from book";
+        String sql = "select * from book limit ?,?";
+
         ResultSet rs = null;
+        ResultSet countRs = null;
+        Connection conn = null;
         try
         {
-            rs = JDBCUtils.executeQuery(sql);
+            conn = JDBCUtils.getConnection();
+            rs = JDBCUtils.executeQuery(conn, sql, (page.getTargetPage() - 1) * page.getSize(), page.getSize());
             List<Book> bookList = JDBCUtils.packEntityList(Book.class, rs);
-            return bookList;
+            page.setItems(bookList);
+
+            countRs = JDBCUtils.executeQuery(conn, countSql);
+            countRs.next();
+            int totalCount = countRs.getInt(1);
+            int totalPage = (totalCount + page.getSize() - 1) / page.getSize();
+            page.setTotalPage(totalPage);
+
         }
         finally
         {
-            JDBCUtils.closeAll(rs);
+            JDBCUtils.closeResultSetAndStatement(rs);
+            JDBCUtils.closeAll(countRs);
         }
     }
 

@@ -72,7 +72,7 @@
 			<!-- 图书列表区域 -->
 
 			<div class="books">
-				<c:forEach items="${bookList}" var='book'>
+				<c:forEach items="${page.items}" var='book'>
 					<div class="book">
 						<a class="bookcover" href="<%=path%>/jsp/bookDetail.jsp"
 							target="_blank"> <img src="<%=path%>/img/${book.coverImage}"
@@ -97,7 +97,15 @@
 
 				<!-- 分页区域 -->
 				<div class="page" style="float: right;">
-					<a href="#">上一页</a> <span>1/1</span> <a href="#">下一页</a>
+					<a
+						<c:if test="${page.targetPage>1 }">
+                            href="<%=path%>/book?action=list&targetPage=${page.targetPage-1}&categoryId=${param.categoryId}&searchText=${param.searchText }"
+                        </c:if>>上一页</a>
+
+					<span>${page.targetPage }/${page.totalPage }</span> <a
+						<c:if test="${page.targetPage<page.totalPage }">
+                            href="<%=path%>/book?action=list&targetPage=${page.targetPage+1}&categoryId=${param.categoryId}&searchText=${param.searchText }"
+                        </c:if>>下一页</a>
 				</div>
 			</div>
 		</div>

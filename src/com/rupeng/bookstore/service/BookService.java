@@ -1,19 +1,18 @@
 package com.rupeng.bookstore.service;
 
-import java.util.List;
-
 import com.rupeng.bookstore.dao.BookDao;
 import com.rupeng.bookstore.entity.Book;
+import com.rupeng.bookstore.utils.Page;
 
 public class BookService
 {
     private BookDao bookDao = new BookDao();
 
-    public List<Book> list()
+    public void list(Page<Book> page)
     {
         try
         {
-            return bookDao.list();
+            bookDao.list(page);
         }
         catch (Exception e)
         {

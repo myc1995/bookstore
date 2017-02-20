@@ -1,7 +1,6 @@
 package com.rupeng.bookstore.servlet;
 
 import java.io.IOException;
-import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -11,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.rupeng.bookstore.entity.Book;
 import com.rupeng.bookstore.service.BookService;
+import com.rupeng.bookstore.utils.Page;
 
 @WebServlet("/book")
 public class BookServlet extends HttpServlet
@@ -34,8 +34,19 @@ public class BookServlet extends HttpServlet
     private void processList(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException
     {
-        List<Book> bookList = bookService.list();
-        request.setAttribute("bookList", bookList);
+        int size = 6;
+        int targetPage = 1;
+        try
+        {
+            targetPage = Integer.parseInt(request.getParameter("targetPage"));
+        }
+        catch (Exception e)
+        {
+        }
+
+        Page<Book> page = new Page<Book>(size, targetPage);
+        bookService.list(page);
+        request.setAttribute("page", page);
         request.getRequestDispatcher("/WEB-INF/jsp/bookList.jsp").forward(request, response);
     }
 
