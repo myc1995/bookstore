@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.rupeng.bookstore.entity.Book;
 import com.rupeng.bookstore.service.BookService;
 import com.rupeng.bookstore.utils.Page;
+import com.rupeng.bookstore.utils.Utils;
 
 @WebServlet("/book")
 public class BookServlet extends HttpServlet
@@ -34,6 +35,8 @@ public class BookServlet extends HttpServlet
     private void processList(HttpServletRequest request, HttpServletResponse response)
             throws ServletException, IOException
     {
+        String searchText = request.getParameter("searchText");
+        System.out.println(searchText);
         int size = 6;
         int targetPage = 1;
         try
@@ -52,7 +55,12 @@ public class BookServlet extends HttpServlet
         {
         }
         Page<Book> page = new Page<Book>(size, targetPage);
-        if (categoryId != null)
+
+        if (!Utils.isEmpty(searchText))
+        {
+            bookService.list(page, "%" + searchText + "%");
+        }
+        else if (categoryId != null)
         {
             bookService.list(page, categoryId);
         }

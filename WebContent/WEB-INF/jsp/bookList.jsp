@@ -62,9 +62,17 @@
 			<div>
 				<div class="search">
 					<form id="searchForm" action="<%=path%>/book" method="post">
-						<input type="text" name="searchText" value="书名、作者"
-							class="searchtext" /> <input type="submit" class="searchbtn" />
-					</form>
+                        <input type="hidden" name="action" value="list" />
+                        <input type="text"  name="searchText" 
+                            <c:if test="${empty param.searchText }">
+                                value="书名、作者"     
+                            </c:if>
+                            <c:if test="${not empty param.searchText }">
+                                value="${param.searchText }"     
+                            </c:if>
+                        class="searchtext" />
+                        <input type="submit" class="searchbtn" />
+                    </form>
 				</div>
 				<div style="clear: both;"></div>
 				<hr style="margin-bottom: 10px" />

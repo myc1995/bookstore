@@ -32,4 +32,16 @@ public class BookService
         }
     }
 
+    public void list(Page<Book> page, String searchText)
+    {
+        try
+        {
+            bookDao.list(page, searchText);
+        }
+        catch (Exception e)
+        {
+            throw new RuntimeException();
+        }
+    }
+
 }

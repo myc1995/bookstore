@@ -71,4 +71,34 @@ public class BookDao
         }
     }
 
+    public void list(Page<Book> page, String searchText) throws SQLException
+    {
+        String sql = "select * from book where name like ?  or author like ? limit ?,?";
+        String countSql = "select count(*) from book where name like ? or author like ?";
+
+        ResultSet rs = null;
+        ResultSet countRs = null;
+        Connection conn = null;
+        try
+        {
+            conn = JDBCUtils.getConnection();
+            rs = JDBCUtils.executeQuery(conn, sql, searchText, searchText, (page.getTargetPage() - 1) * page.getSize(),
+                    page.getSize());
+            List<Book> bookList = JDBCUtils.packEntityList(Book.class, rs);
+            page.setItems(bookList);
+
+            countRs = JDBCUtils.executeQuery(conn, countSql, searchText, searchText);
+            countRs.next();
+            int totalCount = countRs.getInt(1);
+            int totalPage = (totalCount + page.getSize() - 1) / page.getSize();
+            page.setTotalPage(totalPage);
+
+        }
+        finally
+        {
+            JDBCUtils.closeResultSetAndStatement(rs);
+            JDBCUtils.closeAll(countRs);
+        }
+    }
+
 }
