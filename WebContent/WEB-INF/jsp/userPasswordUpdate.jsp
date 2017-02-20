@@ -50,9 +50,9 @@
 			<p>修改密码</p>
 			<span>${message }</span>
 		</div>
-		<form action="<%=path%>/jsp/userPasswordUpdateSuccess.jsp"
+		<form action="<%=path%>/user"
 			method="post">
-
+			<input type='hidden' name='action' value='passwordUpdateSubmit' />
 			<!-- 原密码 -->
 			<div class="text-input">
 				<label for="password">原密码 *</label> <input id="password"

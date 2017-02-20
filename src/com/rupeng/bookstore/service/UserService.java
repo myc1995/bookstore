@@ -45,4 +45,29 @@ public class UserService
         }
     }
 
+    public void updatePassword(String email, String newpassword)
+    {
+        try
+        {
+            userDao.updatePassword(email, newpassword);
+        }
+        catch (SQLException e)
+        {
+            throw new RuntimeException(e);
+        }
+
+    }
+
+    public boolean passwordIsNotRight(String email, String password)
+    {
+        try
+        {
+            return userDao.passwordIsNotRight(email, password);
+        }
+        catch (SQLException e)
+        {
+            throw new RuntimeException(e);
+        }
+    }
+
 }

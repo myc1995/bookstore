@@ -46,15 +46,33 @@ public class UserDao
         {
             rs = JDBCUtils.executeQuery(sql, email, password);
             return JDBCUtils.packEntity(User.class, rs);
-            /*if (rs.next())
-            {
-                User user = new User();
-                user.setEmail(rs.getString("email"));
-                user.setId(rs.getInt("id"));
-                user.setRole(rs.getString("role"));
-                return user;
-            }
-            return null;*/
+            /*
+             * if (rs.next()) { User user = new User();
+             * user.setEmail(rs.getString("email"));
+             * user.setId(rs.getInt("id")); user.setRole(rs.getString("role"));
+             * return user; } return null;
+             */
+        }
+        finally
+        {
+            JDBCUtils.closeAll(rs);
+        }
+    }
+
+    public int updatePassword(String email, String newpassword) throws SQLException
+    {
+        String sql = "update user set password=? where email=?";
+        return JDBCUtils.executeUpdate(sql, newpassword, email);
+    }
+
+    public boolean passwordIsNotRight(String email, String password) throws SQLException
+    {
+        String sql = "select * from user where email=? and password=?";
+        ResultSet rs = null;
+        try
+        {
+            rs = JDBCUtils.executeQuery(sql, email, password);
+            return !rs.next();
         }
         finally
         {

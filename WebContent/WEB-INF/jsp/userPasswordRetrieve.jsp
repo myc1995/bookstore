@@ -57,6 +57,37 @@
               
               return r1 && r2 && r3;
           });
+          
+      	//发送ajax请求
+  		$("#getCheckCodeBtn").click(function() {
+  			if(!checkEmail("email", "emailTip")){
+  				return;
+  			}
+  			var email=$("#email").val();
+  			$.post("<%=path%>/user", {
+  						"action" : "sendCheckCodeJson",
+  						"email" : email
+  					}, function(result) {
+  						if (result.status == "success") {
+  							$("#getCheckCodeBtn").prop("disable", true);
+  							var remainTime = 60;
+  							var intervalId = setInterval(
+  									function() {
+  										remainTime--;
+  										if (remainTime > 0) {
+  											$("getCheckCodeBtn").val(" " + remainTime+ " 秒后重试...");
+  										} else {
+  											clearInterval(intervalId);
+  											$("getCheckCodeBtn").prop(
+  													"disable", false);
+  											$("getCheckCodeBtn").val("获取验证码");
+  										}
+  									}, 1000)
+  						} else {
+  							alert(result.data);
+  						}
+  					}, "json")
+  				});
         });
 </script>
 </head>
@@ -69,8 +100,8 @@
 			<p>找回密码</p>
 			<span>${message }</span>
 		</div>
-		<form action="#" method="post">
-
+		<form action="<%=path%>/user" method="post">
+			<input type='hidden' name='action' value='passwordRetrieveSubmit' />
 			<div class="text-input">
 				<label for="email">邮箱*</label> <input id="email" name="email"
 					type="text" /> <span id="emailTip"></span>

@@ -83,7 +83,7 @@
 
 				<label for="rememberMe">记住我</label>&nbsp;&nbsp;&nbsp;
 				&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp;&nbsp; <a
-					href="<%=path%>/jsp/userPasswordRetrieve.jsp">找回密码</a>
+					href="<%=path%>/user?action=passwordRetrieve">找回密码</a>
 			</p>
 
 			<br /> <br /> <input type="submit" value="   登   录   " />

@@ -293,7 +293,7 @@ public class Utils
 
         String mailCode = new Random().nextInt(90000) + 10000 + ""; // 得到一个随机的5位数字的字符串
         String info = "您好， 您的验证码是：" + mailCode + "（该验证码在30分钟内有效）";// 邮件内容
-
+        System.out.println(info);
         Message message = new MimeMessage(mailSession);
         try
         {

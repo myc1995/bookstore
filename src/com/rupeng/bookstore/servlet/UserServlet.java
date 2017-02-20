@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.rupeng.bookstore.entity.User;
 import com.rupeng.bookstore.service.UserService;
+import com.rupeng.bookstore.utils.AjaxResult;
 import com.rupeng.bookstore.utils.Utils;
 
 @WebServlet("/user")
@@ -41,6 +42,156 @@ public class UserServlet extends HttpServlet
         {
             processLogout(response, request);
         }
+        else if ("passwordRetrieve".equals(action))
+        {
+            processPasswordRetrieve(response, request);
+        }
+        else if ("sendCheckCodeJson".equals(action))
+        {
+            processSendCheckCodeJson(request, response);
+        }
+        else if ("passwordRetrieveSubmit".equals(action))
+        {
+            processPasswordRetrieveSubmit(response, request);
+        }
+        else if ("passwordUpdate".equals(action))
+        {
+            processPasswordUpdate(response, request);
+        }
+        else if ("passwordUpdateSubmit".equals(action))
+        {
+            processPasswordUpdateSubmit(request, response);
+        }
+    }
+
+    private void processPasswordUpdateSubmit(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException
+    {
+        User user = (User) request.getSession().getAttribute("user");
+        // 原密码
+        String password = request.getParameter("password");
+        // 新密码
+        String newpassword = request.getParameter("newpassword");
+
+        String imageCode = request.getParameter("imageCode");
+        // 原密码长度检查
+        if (Utils.isNotMatchImageCode(imageCode, request.getSession()))
+        {
+            request.setAttribute("message", "验证码不正确，请重新输入");
+            request.getRequestDispatcher("/WEB-INF/jsp/userPasswordUpdate.jsp").forward(request, response);
+            return;
+        }
+        if (Utils.isEmptyOrNotLengthEnough(password, 6))
+        {
+            request.setAttribute("message", "原密码长度至少6位");
+            request.getRequestDispatcher("/WEB-INF/jsp/userPasswordUpdate.jsp").forward(request, response);
+            return;
+        }
+
+        // 原密码正确性检查--需要查询数据库
+        if (userService.passwordIsNotRight(user.getEmail(), Utils.md5(password)))
+        {
+            request.setAttribute("message", "原密码不正确，请重新输入");
+            request.getRequestDispatcher("/WEB-INF/jsp/userPasswordUpdate.jsp").forward(request, response);
+            return;
+        }
+
+        // 新密码非空检查
+        if (Utils.isEmptyOrNotLengthEnough(newpassword, 6))
+        {
+            request.setAttribute("message", "新密码长度不能小于6位");
+            request.getRequestDispatcher("/WEB-INF/jsp/userPasswordUpdate.jsp").forward(request, response);
+            return;
+        }
+
+        // 执行修改密码的业务逻辑
+        userService.updatePassword(user.getEmail(), Utils.md5(newpassword));
+
+        request.getRequestDispatcher("/WEB-INF/jsp/userPasswordUpdateSuccess.jsp").forward(request, response);
+    }
+
+    private void processPasswordUpdate(HttpServletResponse response, HttpServletRequest request)
+            throws ServletException, IOException
+    {
+        // TODO 自动生成的方法存根
+        request.getRequestDispatcher("/WEB-INF/jsp/userPasswordUpdate.jsp").forward(request, response);
+    }
+
+    private void processPasswordRetrieveSubmit(HttpServletResponse response, HttpServletRequest request)
+            throws ServletException, IOException
+    {
+        String email = request.getParameter("email");
+        String checkCode = request.getParameter("checkCode");
+        String newPassword = request.getParameter("newpassword");
+
+        if (Utils.isEmptyOrNotEmail(email))
+        {
+            request.setAttribute("message", "请输入正确的邮箱格式");
+            request.getRequestDispatcher("/WEB-INF/jsp/userPasswordRetrieve.jsp").forward(request, response);
+            return;
+        }
+        else
+        {
+            if (userService.emailIsNotExist(email))
+            {
+                request.setAttribute("message", "此邮箱没有被注册，不能用来找回密码");
+                request.getRequestDispatcher("/WEB-INF/jsp/userPasswordRetrieve.jsp").forward(request, response);
+                return;
+            }
+        }
+        if (Utils.isNotMatchMailCode(checkCode, request.getSession()))
+        {
+            request.setAttribute("message", "邮件验证码错误，请重新获取并填写");
+            request.getRequestDispatcher("/WEB-INF/jsp/userPasswordRetrieve.jsp").forward(request, response);
+            return;
+        }
+        if (Utils.isEmptyOrNotLengthEnough(newPassword, 6))
+        {
+            request.setAttribute("message", "新密码长度至少6位");
+            request.getRequestDispatcher("/WEB-INF/jsp/userPasswordRetrieve.jsp").forward(request, response);
+            return;
+        }
+        // 处理修改密码的业务逻辑
+        userService.updatePassword(email, Utils.md5(newPassword));
+        request.getRequestDispatcher("/WEB-INF/jsp/userPasswordUpdateSuccess.jsp").forward(request, response);
+    }
+
+    private void processSendCheckCodeJson(HttpServletRequest request, HttpServletResponse response)
+    {
+        String email = request.getParameter("email");
+        System.out.println(email);
+        // 检查非空、格式
+        if (Utils.isEmptyOrNotEmail(email))
+        {
+            Utils.sendAjaxResponse(response, new AjaxResult("error", "请输入正确的邮箱地址"));
+            return;
+        }
+
+        // 检查此邮箱是否已经注册
+        if (userService.emailIsNotExist(email))
+        {
+            Utils.sendAjaxResponse(response, new AjaxResult("error", "此邮箱没有被注册"));
+            return;
+        }
+
+        // 尝试发送验证码邮件
+        boolean result = Utils.sendMailCode4PasswordRetrieve(request.getSession(), email);
+        // 如果发送成功
+        if (result)
+        {
+            Utils.sendAjaxResponse(response, new AjaxResult("success", "发送验证码邮件成功"));
+        }
+        else
+        {
+            Utils.sendAjaxResponse(response, new AjaxResult("error", "发送验证码邮件失败"));
+        }
+
+    }
+
+    private void processPasswordRetrieve(HttpServletResponse response, HttpServletRequest request)
+            throws ServletException, IOException
+    {
+        request.getRequestDispatcher("/WEB-INF/jsp/userPasswordRetrieve.jsp").forward(request, response);
     }
 
     private void processLogout(HttpServletResponse response, HttpServletRequest request) throws IOException

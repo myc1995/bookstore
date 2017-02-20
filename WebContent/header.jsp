@@ -34,7 +34,7 @@
 					href="${pageContext.request.contextPath }/jsp/addressList.jsp">
 						收货地址 </a></li>
 				<li><a
-					href="${pageContext.request.contextPath }/jsp/userPasswordUpdate.jsp">
+					href="${pageContext.request.contextPath }/user?action=passwordUpdate">
 						修改密码 </a></li>
 				<li><a
 					href="${pageContext.request.contextPath }/user?action=logout">
