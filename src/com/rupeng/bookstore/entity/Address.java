@@ -6,10 +6,11 @@ public class Address
 {
     private Integer id;
     private int userId;
-    private String consigee;// 收货人
+    private String consignee;// 收货人
     private String phone;
     private String location;
-    private Date datetime;
+    private Date createTime;
+    private boolean isDefault;
 
     @Override
     public int hashCode()
@@ -60,14 +61,14 @@ public class Address
         this.userId = userId;
     }
 
-    public String getConsigee()
+    public String getConsignee()
     {
-        return consigee;
+        return consignee;
     }
 
-    public void setConsigee(String consigee)
+    public void setConsignee(String consignee)
     {
-        this.consigee = consigee;
+        this.consignee = consignee;
     }
 
     public String getPhone()
@@ -90,26 +91,23 @@ public class Address
         this.location = location;
     }
 
-    public Date getDatetime()
+    public Date getCreateTime()
     {
-        return datetime;
+        return createTime;
     }
 
-    public void setDatetime(Date datetime)
+    public void setCreateTime(Date createTime)
     {
-        this.datetime = datetime;
+        this.createTime = createTime;
     }
 
-    public boolean isDefault()
+    public boolean getIsDefault()
     {
         return isDefault;
     }
 
-    public void setDefault(boolean isDefault)
+    public void setIsDefault(boolean isDefault)
     {
         this.isDefault = isDefault;
     }
-
-    private boolean isDefault;
-
 }
