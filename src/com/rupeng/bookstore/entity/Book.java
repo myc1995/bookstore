@@ -8,7 +8,7 @@ public class Book
     private int categoryId;
     private String name;
     private double price;
-    private String auther;
+    private String author;
     private String press;
     private Date publishDate;
 
@@ -81,14 +81,14 @@ public class Book
         this.price = price;
     }
 
-    public String getAuther()
+    public String getAuthor()
     {
-        return auther;
+        return author;
     }
 
-    public void setAuther(String auther)
+    public void setAuthor(String author)
     {
-        this.auther = auther;
+        this.author = author;
     }
 
     public String getPress()

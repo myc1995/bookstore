@@ -1,6 +1,8 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
-<%String path = request.getContextPath(); %>
+<%
+    String path = request.getContextPath();
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -18,21 +20,22 @@
 	<div class="main" style="width: 900px;">
 		<!-- 图书大图片 -->
 		<div class="show_pic">
-			<img class="pic" src="<%=path%>/img/2016-07-15/santi.jpg" />
+			<img class="pic" src="<%=path%>/img/${book.coverImage}" />
 		</div>
 
 		<div class="show_info">
-			<h2>三体全集（全3册）</h2>
+			<h2>${book.name}</h2>
 			<ul class="intro">
-				<li>图书编号：1900471292</li>
+				<li>图书编号：${book.id}</li>
 				<li>价格：
-					<div class="price">¥168.00</div>
+					<div class="price">${book.price}</div>
 				</li>
-				<li>作 者： 刘慈欣</li>
-				<li>出 版 社：重庆出版社</li>
-				<li><span>出版日期：2011-11-01</span> <span>ISBN：9787536692930</span>
+				<li>作 者： ${book.author}</li>
+				<li>出 版 社：${book.press}</li>
+				<li><span>出版日期：${book.publishDate}</span> <span>${book.isbn}</span>
 				</li>
-				<li><span>页 数：1326</span> <span>字 数：891924</span></li>
+				<li><span>页 数：${book.pageCount}</span> <span>字
+						数：${book.wordCount}</span></li>
 			</ul>
 
 			<div class="buy-area">
@@ -49,9 +52,7 @@
 		<div class="pro_content">
 			<div class="section">
 				<div class="tit">内容推荐</div>
-				<div class="descrip">
-					三体人在利用魔法般的科技锁死了地球人的科学之后，庞大的宇宙舰队杀气腾腾地直扑太阳系，意欲清除地球文明。面对前所未有的危局，经历过无数磨难的地球人组建起同样庞大的太空舰队，同时，利用三体人思维透明的致命缺陷，制订了神秘莫测的“面壁计划”，精选出四位“面壁者”。秘密展开对三体人的反击。
-				</div>
+				<div class="descrip">${book.description}</div>
 			</div>
 		</div>
 

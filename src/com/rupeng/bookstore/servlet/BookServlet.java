@@ -30,6 +30,19 @@ public class BookServlet extends HttpServlet
         {
             processList(request, response);
         }
+        else if ("detail".equals(action))
+        {
+            processDetail(request, response);
+        }
+    }
+
+    private void processDetail(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException
+    {
+        int bookId = Integer.parseInt(request.getParameter("id"));
+        Book book = bookService.findById(bookId);
+        request.setAttribute("book", book);
+        request.getRequestDispatcher("/WEB-INF/jsp/bookDetail.jsp").forward(request, response);
     }
 
     private void processList(HttpServletRequest request, HttpServletResponse response)

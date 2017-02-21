@@ -62,17 +62,16 @@
 			<div>
 				<div class="search">
 					<form id="searchForm" action="<%=path%>/book" method="post">
-                        <input type="hidden" name="action" value="list" />
-                        <input type="text"  name="searchText" 
-                            <c:if test="${empty param.searchText }">
+						<input type="hidden" name="action" value="list" /> <input
+							type="text" name="searchText"
+							<c:if test="${empty param.searchText }">
                                 value="书名、作者"     
                             </c:if>
-                            <c:if test="${not empty param.searchText }">
+							<c:if test="${not empty param.searchText }">
                                 value="${param.searchText }"     
                             </c:if>
-                        class="searchtext" />
-                        <input type="submit" class="searchbtn" />
-                    </form>
+							class="searchtext" /> <input type="submit" class="searchbtn" />
+					</form>
 				</div>
 				<div style="clear: both;"></div>
 				<hr style="margin-bottom: 10px" />
@@ -82,13 +81,13 @@
 			<div class="books">
 				<c:forEach items="${page.items}" var='book'>
 					<div class="book">
-						<a class="bookcover" href="<%=path%>/jsp/bookDetail.jsp"
-							target="_blank"> <img src="<%=path%>/img/${book.coverImage}"
-							alt="${book.name}" />
+						<a class="bookcover"
+							href="<%=path%>/book?action=detail&id=${book.id}" target="_blank">
+							<img src="<%=path%>/img/${book.coverImage}" alt="${book.name}" />
 						</a>
 						<div class="bookinfo">
 							<div class="title">${book.name}</div>
-							<div class="author">${book.auther}</div>
+							<div class="author">${book.author}</div>
 							<div class="price">
 								<span>${book.price}</span>
 							</div>

@@ -36,30 +36,24 @@
 			</thead>
 
 			<tbody>
-				<tr class="address-default">
-					<td>蛋蛋</td>
-					<td>18000000001</td>
-					<td>北京市 西城区 xxxx</td>
-					<td>2016-01-01 10:10:10</td>
-					<td><a href="<%=path%>/jsp/addressUpdate.jsp">修改</a> &nbsp; <a
-						href="#">删除</a> &nbsp; 默认地址</td>
-				</tr>
-				<tr>
-					<td>蛋蛋</td>
-					<td>18000000002</td>
-					<td>北京市 海淀区 xxxx</td>
-					<td>2016-05-01 11:11:11</td>
-					<td><a href="<%=path%>/jsp/addressUpdate.jsp">修改</a> &nbsp; <a
-						href="#">删除</a> &nbsp; <a href="#">设为默认地址</a></td>
-				</tr>
-				<tr>
-					<td>蛋蛋</td>
-					<td>18000000001</td>
-					<td>北京市 昌平区 xxxx</td>
-					<td>2016-06-02 08:00:10</td>
-					<td><a href="<%=path%>/jsp/addressUpdate.jsp">修改</a> &nbsp; <a
-						href="#">删除</a> &nbsp; <a href="#">设为默认地址</a></td>
-				</tr>
+				<c:forEach items="${requestScope.addressList }" var="address">
+                    <tr 
+                        <c:if test="${address.isDefault }">class="address-default"</c:if>
+                    >
+                        <td>${address.consignee }</td>
+                        <td>${address.phone }</td>
+                        <td>${address.location }</td> 
+                        <td><fmt:formatDate value="${address.createTime }" pattern="yyyy-MM-dd HH:mm:ss"/></td>
+                        <td>
+                            <a href="<%=path%>/address?action=update&id=${address.id }" >修改</a> &nbsp;&nbsp;
+                            <a href="<%=path%>/address?action=deleteSubmit&id=${address.id }"  onclick="return confirm('确定要删除此地址吗？')">删除</a> &nbsp;&nbsp;
+                            <c:if test="${address.isDefault }">默认地址</c:if>
+                            <c:if test="${not address.isDefault }">
+                                <a href="<%=path%>/address?action=setDefaultSubmit&id=${address.id }">设为默认地址</a>
+                            </c:if>
+                        </td>
+                    </tr> 
+                </c:forEach>
 			</tbody>
 		</table>
 	</div>

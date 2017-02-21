@@ -31,7 +31,7 @@
 						我的订单 <span>2</span>
 				</a></li>
 				<li><a target="_blank"
-					href="${pageContext.request.contextPath }/jsp/addressList.jsp">
+					href="${pageContext.request.contextPath }/address?action=list&id=${user.id}">
 						收货地址 </a></li>
 				<li><a
 					href="${pageContext.request.contextPath }/user?action=passwordUpdate">

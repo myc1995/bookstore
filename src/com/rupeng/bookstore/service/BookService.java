@@ -44,4 +44,16 @@ public class BookService
         }
     }
 
+    public Book findById(int bookId)
+    {
+        try
+        {
+            return bookDao.findById(bookId);
+        }
+        catch (Exception e)
+        {
+            throw new RuntimeException();
+        }
+    }
+
 }

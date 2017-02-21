@@ -101,4 +101,20 @@ public class BookDao
         }
     }
 
+    public Book findById(int bookId) throws SQLException
+    {
+        String sql = "select * from book where id=?";
+        ResultSet rs = null;
+        try
+        {
+            rs = JDBCUtils.executeQuery(sql, bookId);
+            Book book = JDBCUtils.packEntity(Book.class, rs);
+            return book;
+        }
+        finally
+        {
+            JDBCUtils.closeAll(rs);
+        }
+    }
+
 }
