@@ -13,7 +13,7 @@ public class AddressDao
 
     public List<Address> list(int userId) throws SQLException
     {
-        String sql = "select * from address where userId = ?";
+        String sql = "select * from address where userId = ? order by isDefault desc,createTime desc";
         ResultSet rs = null;
         try
         {
