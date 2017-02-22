@@ -11,8 +11,8 @@
 
 			<c:if test="${not empty sessionScope.user}">
 				<li><a target="_blank"
-					href="${pageContext.request.contextPath }/jsp/cartList.jsp"> <i
-						class="icon_card"></i>购物车 <span>3</span>
+					href="${pageContext.request.contextPath }/cart?action=list"> <i
+						class="icon_card"></i>购物车 <span>${sessionScope.cart.cartItemList.size()}</span>
 				</a></li>
 			</c:if>
 

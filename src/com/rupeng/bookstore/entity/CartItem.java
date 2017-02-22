@@ -7,6 +7,11 @@ public class CartItem
     private int count;
     private double price;
 
+    public double getTotalPrice()
+    {
+        return price * count;
+    }
+
     public int getBookId()
     {
         return bookId;

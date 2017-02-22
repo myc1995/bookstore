@@ -93,8 +93,8 @@
 							</div>
 							<div class="description">${book.description}</div>
 							<div>
-								<a href="<%=path%>/jsp/cartList.jsp" target="_blank"
-									class="add-cart"></a>
+								<a href="<%=path%>/cart?action=addSubmit&bookId=${book.id}"
+									target="_blank" class="add-cart"></a>
 							</div>
 						</div>
 					</div>

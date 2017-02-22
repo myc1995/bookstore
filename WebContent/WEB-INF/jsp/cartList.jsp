@@ -1,7 +1,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
 	pageEncoding="UTF-8"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
-<%String path = request.getContextPath(); %>
+<%
+    String path = request.getContextPath();
+%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -21,7 +23,8 @@
 			<span>${message }</span>
 		</div>
 
-		<form action="<%=path%>/jsp/ordersCreate.jsp" method="post">
+		<form action="<%=path%>/orders" method="post">
+			<input type="hidden" name="action" value="create" />
 
 			<table>
 				<thead>
@@ -33,37 +36,26 @@
 						<td>删除</td>
 					</tr>
 				</thead>
-
 				<tbody>
-					<tr>
-						<td>三体全集（全3册）</td>
-						<td>¥168.00</td>
-						<td><input type="text" name="count" value="2" /></td>
-						<td>¥336.00</td>
-						<td><a href="#">删除</a></td>
-					</tr>
-					<tr>
-						<td>时间简史</td>
-						<td>¥30.00</td>
-						<td><input type="text" name="count" value="1" /></td>
-						<td>¥30.00</td>
-						<td><a href="#">删除</a></td>
-					</tr>
-					<tr>
-						<td>了不起的盖茨比</td>
-						<td>¥19.50</td>
-						<td><input type="text" name="count" value="1" /></td>
-						<td>¥19.50</td>
-						<td><a href="#">删除</a></td>
-					</tr>
+					<c:forEach items="${cart.cartItemList }" var="cartItem">
+						<tr>
+							<td><input type="hidden" name="bookIds"
+								value="${cartItem.bookId }" />${cartItem.bookName }</td>
+							<td>¥${cartItem.price }</td>
+							<td><input type="text" name="counts"
+								value="${cartItem.count }" /></td>
+							<td>¥${cartItem.totalPrice }</td>
+							<td><a
+								href="<%=path%>/cart?action=deleteSubmit&bookId=${cartItem.bookId}">删除</a></td>
+						</tr>
+					</c:forEach>
 				</tbody>
-
 				<tfoot>
 					<tr>
 						<td></td>
 						<td></td>
-						<td>合计：4</td>
-						<td>合计：¥385.50</td>
+						<td>合计：${cart.totalCount }</td>
+						<td>合计：¥${cart.totalPrice }</td>
 						<td></td>
 					</tr>
 				</tfoot>

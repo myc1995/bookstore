@@ -39,12 +39,14 @@
 			</ul>
 
 			<div class="buy-area">
-				<form action="<%=path%>/jsp/cartList.jsp" method="post">
-					<label>我要买：</label> <input type="text" name="count" value="1"
-						size="4" /> 本 <input type="submit" class="add-cart" value="" />
+				<form action="<%=path%>/cart" method="post">
+					<input type='hidden' name='bookId' value="${book.id}" /> 
+					<input type='hidden' name='action' value='addSubmit' /> 
+					<label>我要买：</label>
+					<input type="text" name="count" value="1" size="4" /> 本 
+					<input type="submit" class="add-cart" value="" />
 				</form>
 			</div>
-
 		</div>
 
 		<div style="clear: both;"></div>
