@@ -22,7 +22,7 @@
 		</div>
 
 		<div style="margin-bottom: 40px;">
-			<a href="<%=path%>/jsp/addressAdd.jsp" target="_self">添加新收货地址</a>
+			<a href="<%=path%>/address?action=add" target="_self">添加新收货地址</a>
 		</div>
 		<table>
 			<thead>

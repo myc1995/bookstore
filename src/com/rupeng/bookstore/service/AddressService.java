@@ -1,9 +1,12 @@
 package com.rupeng.bookstore.service;
 
+import java.sql.Connection;
+import java.sql.SQLException;
 import java.util.List;
 
 import com.rupeng.bookstore.dao.AddressDao;
 import com.rupeng.bookstore.entity.Address;
+import com.rupeng.bookstore.utils.JDBCUtils;
 
 public class AddressService
 {
@@ -18,6 +21,53 @@ public class AddressService
         catch (Exception e)
         {
             throw new RuntimeException();
+        }
+    }
+
+    public void add(Address address)
+    {
+        Connection conn = null;
+        try
+        {
+            conn = JDBCUtils.getConnection();
+            conn.setAutoCommit(false);
+
+            // 如果不是默认收货地址
+            if (!address.getIsDefault())
+            {
+                // 如果数据库里没有其他收货地址，本次添加的默认就是收货地址
+                int count = addressDao.count(conn, address.getUserId());
+                if (count == 0)
+                {
+                    address.setIsDefault(true);
+                }
+            }
+            // 如果现在是默认收货地址，需要把其他默认的收货地址设置非默认的
+            if (address.getIsDefault())
+            {
+                // 先取消现有的默认收货地址
+                addressDao.cancelExistingDefault(conn, address.getUserId());
+            }
+            // 执行添加
+            addressDao.add(conn, address);
+            // 提交事务
+            conn.commit();
+        }
+        catch (SQLException e)
+        {
+            try
+            {
+                conn.rollback();
+            }
+            catch (SQLException e1)
+            {
+                // 应该记录日志的
+            }
+            throw new RuntimeException(e);
+        }
+        finally
+        {
+            JDBCUtils.close(conn);
         }
     }
 

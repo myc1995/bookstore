@@ -1,5 +1,6 @@
 package com.rupeng.bookstore.dao;
 
+import java.sql.Connection;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
@@ -23,6 +24,35 @@ public class AddressDao
         {
             JDBCUtils.closeAll(rs);
         }
+    }
+
+    public int count(Connection conn, int userId) throws SQLException
+    {
+        String sql = "select count(*) from address where userId=?";
+        ResultSet rs = null;
+        try
+        {
+            rs = JDBCUtils.executeQuery(conn, sql, userId);
+            rs.next();
+            return rs.getInt(1);
+        }
+        finally
+        {
+            JDBCUtils.closeResultSetAndStatement(rs);
+        }
+    }
+
+    public int cancelExistingDefault(Connection conn, int userId) throws SQLException
+    {
+        String sql = "update address set isDefault=false where userid=? and isDefault=true";
+        return JDBCUtils.executeUpdate(conn, sql, userId);
+    }
+
+    public int add(Connection conn, Address address) throws SQLException
+    {
+        String sql = "insert into address(userId,consignee,phone,location,createTime,isDefault) values(?,?,?,?,?,?)";
+        return JDBCUtils.executeUpdate(conn, sql, address.getUserId(), address.getConsignee(), address.getPhone(),
+                address.getLocation(), address.getCreateTime(), address.getIsDefault());
     }
 
 }
