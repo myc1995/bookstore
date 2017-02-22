@@ -55,4 +55,21 @@ public class AddressDao
                 address.getLocation(), address.getCreateTime(), address.getIsDefault());
     }
 
+    public Address findById(int id, Integer userId) throws SQLException
+    {
+        String sql = "select * from address where id=? and userId=?";
+        ResultSet rs = null;
+
+        try
+        {
+            rs = JDBCUtils.executeQuery(sql, id, userId);
+
+            return JDBCUtils.packEntity(Address.class, rs);
+        }
+        finally
+        {
+            JDBCUtils.closeAll(rs);
+        }
+    }
+
 }

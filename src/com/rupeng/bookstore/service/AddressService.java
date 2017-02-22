@@ -83,4 +83,16 @@ public class AddressService
         }
     }
 
+    public Address findById(Integer id, Integer userId)
+    {
+        try
+        {
+            return addressDao.findById(id, userId);
+        }
+        catch (SQLException e)
+        {
+            throw new RuntimeException(e);
+        }
+    }
+
 }

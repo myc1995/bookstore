@@ -1,6 +1,8 @@
 package com.rupeng.bookstore.servlet;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import javax.servlet.ServletException;
@@ -11,14 +13,19 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.rupeng.bookstore.entity.Address;
 import com.rupeng.bookstore.entity.Cart;
+import com.rupeng.bookstore.entity.CartItem;
+import com.rupeng.bookstore.entity.Orders;
+import com.rupeng.bookstore.entity.OrdersItem;
 import com.rupeng.bookstore.entity.User;
 import com.rupeng.bookstore.service.AddressService;
+import com.rupeng.bookstore.service.OrdersService;
 import com.rupeng.bookstore.utils.Utils;
 
 @WebServlet("/orders")
 public class OrdersServlet extends HttpServlet
 {
     private AddressService addressService = new AddressService();
+    private OrdersService ordersService = new OrdersService();
 
     protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException
     {
@@ -34,7 +41,90 @@ public class OrdersServlet extends HttpServlet
             processCreate(request, response);
 
         }
+        else if ("createSubmit".equals(action))
+        {
+            processCreateSubmit(request, response);
+        }
+        else if ("pay".equals(action))
+        {
+            processPay(request, response);
+        }
+    }
 
+    private void processPay(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException
+    {
+        request.getRequestDispatcher("/WEB-INF/jsp/ordersPay.jsp").forward(request, response);
+    }
+
+    private void processCreateSubmit(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException
+    {
+        User user = (User) request.getSession().getAttribute("user");
+        Cart cart = (Cart) request.getSession().getAttribute("cart");
+
+        // 由于用户在确认生成订单前可以通过再打开一个购物车页面修改购物车，所以最好还是再进行一次非空检查
+        if (Utils.isEmpty(cart.getCartItemList()))
+        {
+            request.setAttribute("message", "购物车中空空如也");
+            request.getRequestDispatcher("/WEB-INF/jsp/cartList.jsp").forward(request, response);
+            return;
+        }
+
+        // 收货地址
+        int addressId = 0;
+        try
+        {
+            addressId = Integer.parseInt(request.getParameter("addressId"));
+        }
+        catch (Exception e)
+        {
+            request.setAttribute("message", "您还没有添加收货地址，请先添加收货地址");
+            request.getRequestDispatcher("/WEB-INF/jsp/ordersCreate.jsp").forward(request, response);
+            return;
+        }
+
+        Address address = addressService.findById(addressId, user.getId());
+
+        // 封装实体类
+        Orders orders = new Orders();
+        orders.setId(Utils.getNewOrdersId());
+        orders.setUserId(user.getId());
+        orders.setAddressInfo(address.toString());
+        orders.setStatus("未支付");
+        orders.setTotalPrice(cart.getTotalPrice());
+        orders.setCreateTime(new Date());
+
+        List<OrdersItem> ordersItemList = new ArrayList<OrdersItem>();
+        List<CartItem> cartItemList = cart.getCartItemList();
+
+        for (CartItem cartItem : cartItemList)
+        {
+            OrdersItem ordersItem = new OrdersItem();
+            ordersItem.setBookId(cartItem.getBookId());
+            ordersItem.setBookName(cartItem.getBookName());
+            ordersItem.setCount(cartItem.getCount());
+            ordersItem.setOrdersId(orders.getId());
+            ordersItem.setPrice(cartItem.getPrice());
+
+            ordersItemList.add(ordersItem);
+        }
+
+        orders.setOrdersItemList(ordersItemList);
+
+        // 执行业务逻辑
+        ordersService.add(orders);
+
+        // 查询用户的未支付的订单的数量，显示在header区域
+        int unpaidOrdersCount = ordersService.findUnpaidOrdersCount(user.getId());
+        if (unpaidOrdersCount > 0)
+        {
+            request.getSession().setAttribute("unpaidOrdersCount", unpaidOrdersCount);
+        }
+
+        // 生成订单成功，清空购物车，跳转到支付页面
+        request.getSession().setAttribute("cart", null);
+        request.getRequestDispatcher("/WEB-INF/jsp/ordersCreateSuccess.jsp").forward(request, response);
     }
 
     private void processCreate(HttpServletRequest request, HttpServletResponse response)

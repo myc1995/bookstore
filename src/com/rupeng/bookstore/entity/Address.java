@@ -12,6 +12,13 @@ public class Address
     private Date createTime;
     private boolean isDefault;
 
+    public String toString()
+    {
+        StringBuilder builder = new StringBuilder();
+        builder.append(consignee).append("，").append(phone).append("，").append(location);
+        return builder.toString();
+    }
+
     @Override
     public int hashCode()
     {
