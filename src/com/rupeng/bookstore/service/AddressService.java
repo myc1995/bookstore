@@ -71,4 +71,16 @@ public class AddressService
         }
     }
 
+    public List<Address> list(Integer userId)
+    {
+        try
+        {
+            return addressDao.list(userId);
+        }
+        catch (SQLException e)
+        {
+            throw new RuntimeException(e);
+        }
+    }
+
 }

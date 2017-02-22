@@ -55,4 +55,16 @@ public class Cart
         }
         return totalPrice;
     }
+
+    public void updateItem(int bookId, int count)
+    {
+        for (CartItem cartItem : cartItemList)
+        {
+            if (bookId == cartItem.getBookId())
+            {
+                cartItem.setCount(count);
+                return;
+            }
+        }
+    }
 }

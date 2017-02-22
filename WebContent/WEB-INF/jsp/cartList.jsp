@@ -25,7 +25,6 @@
 
 		<form action="<%=path%>/orders" method="post">
 			<input type="hidden" name="action" value="create" />
-
 			<table>
 				<thead>
 					<tr>
