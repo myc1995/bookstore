@@ -12,19 +12,22 @@
             var rows = data.rows;
             for(var i=0;i<rows.length;i++){
                 var row = rows[i];
-                row.operate="<a href='#' onclick='openTab(\"bookUpdate.jsp\",\"图书修改/详情\")'>修改/详情</a>";
-                row.operate=row.operate+" <a href='#'>删除(下架)</a>";
-            }
-            return data;
-        }
-        //查询图书
-        function bookSearch(){
-            var searchText = $("#bookSearchInput").val();
-            var params = {"searchText":searchText};
-            $("#bookDatagrid").datagrid("reload",params);
-          //reload方法执行后params会被datagrid记住，随后的下一页等操作发出的请求也会携带params数据
-        }
-    </script>
+                row.operate="<a href='#' onclick='openTab(\"<%=path%>/book?action=managerUpdate&id="+row.id+"\",\"图书修改/详情\")'>修改/详情</a>";
+                row.operate=row.operate+" <a href='#' onclick='deleteEntity(\"<%=path%>/book\","
+						+ row.id + ",\"bookDatagrid\")'>删除(下架)</a>";
+			}
+			return data;
+		}
+		//查询图书
+		function bookSearch() {
+			var searchText = $("#bookSearchInput").val();
+			var params = {
+				"searchText" : searchText
+			};
+			$("#bookDatagrid").datagrid("reload", params);
+			//reload方法执行后params会被datagrid记住，随后的下一页等操作发出的请求也会携带params数据
+		}
+	</script>
 
 	<!-- 工具栏 -->
 	<div style="margin-bottom: 10px;">
@@ -36,12 +39,12 @@
                                         width:300" />
 		&nbsp;&nbsp;&nbsp;&nbsp; <a class="easyui-linkbutton"
 			data-options=" iconCls:'icon-add'"
-			onclick="openTab('bookAdd.jsp','添加图书')">添加图书</a>
+			onclick="openTab('<%=path%>/book?action=managerAdd','添加图书')">添加图书</a>
 	</div>
 
 	<table id="bookDatagrid" class="easyui-datagrid"
 		data-options="
-                    url:'bookList.json',
+                    url:'<%=path%>/book?action=managerListJson',
                     pagination:true,
                     fitColumns:true,
                     loadFilter:loadFilter">
