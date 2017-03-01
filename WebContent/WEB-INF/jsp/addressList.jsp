@@ -37,23 +37,25 @@
 
 			<tbody>
 				<c:forEach items="${requestScope.addressList }" var="address">
-                    <tr 
-                        <c:if test="${address.isDefault }">class="address-default"</c:if>
-                    >
-                        <td>${address.consignee }</td>
-                        <td>${address.phone }</td>
-                        <td>${address.location }</td> 
-                        <td><fmt:formatDate value="${address.createTime }" pattern="yyyy-MM-dd HH:mm:ss"/></td>
-                        <td>
-                            <a href="<%=path%>/address?action=update&id=${address.id }" >修改</a> &nbsp;&nbsp;
-                            <a href="<%=path%>/address?action=deleteSubmit&id=${address.id }"  onclick="return confirm('确定要删除此地址吗？')">删除</a> &nbsp;&nbsp;
-                            <c:if test="${address.isDefault }">默认地址</c:if>
-                            <c:if test="${not address.isDefault }">
-                                <a href="<%=path%>/address?action=setDefaultSubmit&id=${address.id }">设为默认地址</a>
-                            </c:if>
-                        </td>
-                    </tr> 
-                </c:forEach>
+					<tr
+						<c:if test="${address.isDefault }">class="address-default"</c:if>>
+						<td>${address.consignee }</td>
+						<td>${address.phone }</td>
+						<td>${address.location }</td>
+						<td><fmt:formatDate value="${address.createTime }"
+								pattern="yyyy-MM-dd HH:mm:ss" /></td>
+						<td><a
+							href="<%=path%>/address?action=update&id=${address.id }">修改</a>
+							&nbsp;&nbsp; <a
+							href="<%=path%>/address?action=deleteSubmit&id=${address.id }"
+							onclick="return confirm('确定要删除此地址吗？')">删除</a> &nbsp;&nbsp; <c:if
+								test="${address.isDefault }">默认地址</c:if> <c:if
+								test="${not address.isDefault }">
+								<a
+									href="<%=path%>/address?action=setDefaultSubmit&id=${address.id }">设为默认地址</a>
+							</c:if></td>
+					</tr>
+				</c:forEach>
 			</tbody>
 		</table>
 	</div>

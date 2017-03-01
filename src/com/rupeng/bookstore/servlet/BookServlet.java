@@ -56,6 +56,164 @@ public class BookServlet extends HttpServlet
         {
             processManagerAddJson(request, response);
         }
+        else if ("managerUpdate".equals(action))
+        {
+            processManagerUpdate(request, response);
+        }
+        else if ("managerUpdateJson".equals(action))
+        {
+            processManagerUpdateJson(request, response);
+        }
+    }
+
+    private void processManagerUpdateJson(HttpServletRequest request, HttpServletResponse response)
+            throws IOException, ServletException
+    {
+        int id = Integer.parseInt(request.getParameter("id"));
+        String categoryIdStr = request.getParameter("categoryId");
+        String name = request.getParameter("name");
+        String priceStr = request.getParameter("price");
+        String author = request.getParameter("author");
+        String press = request.getParameter("press");
+        String publishDateStr = request.getParameter("publishDate");
+        String wordCountStr = request.getParameter("wordCount");
+        String pageCountStr = request.getParameter("pageCount");
+        String isbn = request.getParameter("isbn");
+        String description = request.getParameter("description");
+        String coverImage = null;// 需要处理文件上传后才可得到其值
+
+        // 类型转换和有效性检查
+        int categoryId = 0;
+        try
+        {
+            categoryId = Integer.parseInt(categoryIdStr);
+        }
+        catch (Exception e)
+        {
+            Utils.sendAjaxResponse(response, new AjaxResult("error", "图书分类不能为空，请使用下拉选项选择图书分类"));
+            return;
+        }
+        if (Utils.isEmpty(name))
+        {
+            Utils.sendAjaxResponse(response, new AjaxResult("error", "图书名称不能为空"));
+            return;
+        }
+        double price = 0;
+        try
+        {
+            price = Double.parseDouble(priceStr);
+        }
+        catch (Exception e)
+        {
+            Utils.sendAjaxResponse(response, new AjaxResult("error", "图书价格不能为空或只能为数字"));
+            return;
+        }
+        if (price < 0)
+        {
+            Utils.sendAjaxResponse(response, new AjaxResult("error", "图书价格不能小于0"));
+            return;
+        }
+        if (Utils.isEmpty(author))
+        {
+            Utils.sendAjaxResponse(response, new AjaxResult("error", "作者不能为空"));
+            return;
+        }
+        if (Utils.isEmpty(press))
+        {
+            Utils.sendAjaxResponse(response, new AjaxResult("error", "出版社不能为空"));
+            return;
+        }
+        Date publishDate = null;
+        try
+        {
+            publishDate = Utils.convertDate(publishDateStr, "yyyy-MM-dd");
+        }
+        catch (Exception e)
+        {
+            Utils.sendAjaxResponse(response, new AjaxResult("error", "出版日期不能为空或者格式不正确"));
+            return;
+        }
+        int wordCount = 0;
+        try
+        {
+            wordCount = Integer.parseInt(wordCountStr);
+        }
+        catch (Exception e)
+        {
+            Utils.sendAjaxResponse(response, new AjaxResult("error", "字数不能为空或者必须输入数字"));
+            return;
+        }
+        if (wordCount < 1)
+        {
+            Utils.sendAjaxResponse(response, new AjaxResult("error", "字数不能小于1"));
+            return;
+        }
+        int pageCount = 0;
+        try
+        {
+            pageCount = Integer.parseInt(pageCountStr);
+        }
+        catch (Exception e)
+        {
+            Utils.sendAjaxResponse(response, new AjaxResult("error", "页数不能为空或者必须输入数字"));
+            return;
+        }
+        if (pageCount < 1)
+        {
+            Utils.sendAjaxResponse(response, new AjaxResult("error", "页数不能小于1"));
+            return;
+        }
+        if (Utils.isEmpty(isbn))
+        {
+            Utils.sendAjaxResponse(response, new AjaxResult("error", "ISBN不能为空"));
+            return;
+        }
+        if (Utils.isEmpty(description))
+        {
+            Utils.sendAjaxResponse(response, new AjaxResult("error", "图书描述不能为空"));
+            return;
+        }
+
+        // 处理图书封面图片上传
+        Part part = request.getPart("coverImage");
+        if (part != null && part.getSize() > 0)
+        {
+            coverImage = Utils.fileupload(part, getServletContext().getInitParameter("fileuploadRootPath"));
+        }
+
+        // 封装实体类
+        Book book = bookService.findById(id);
+        book.setAuthor(author);
+        book.setCategoryId(categoryId);
+        // 如果coverImage为空，就说明用户没有修改封面图片
+        if (!Utils.isEmpty(coverImage))
+        {
+            book.setCoverImage(coverImage);
+        }
+        book.setDescription(description);
+        book.setIsbn(isbn);
+        book.setName(name);
+        book.setPageCount(pageCount);
+        book.setPress(press);
+        book.setPrice(price);
+        book.setPublishDate(publishDate);
+        book.setWordCount(wordCount);
+
+        // 执行update的业务逻辑
+        bookService.update(book);
+
+        // 返回json响应
+        Utils.sendAjaxResponse(response, new AjaxResult("success", "修改图书成功"));
+
+    }
+
+    private void processManagerUpdate(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException
+    {
+        int bookId = Integer.parseInt(request.getParameter("id"));
+        Book book = bookService.findById(bookId);
+        request.setAttribute("book", book);
+        request.getRequestDispatcher("/WEB-INF/jsp/manager/bookUpdate.jsp").forward(request, response);
     }
 
     private void processManagerAddJson(HttpServletRequest request, HttpServletResponse response)

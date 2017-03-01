@@ -50,8 +50,7 @@
 						checked="checked" disabled="disabled" /> <label for="isDefault">设为默认地址</label>
 				</p>
 
-				<br />
-				<br /> <input type="submit" value="   保   存   " />
+				<br /> <br /> <input type="submit" value="   保   存   " />
 			</form>
 		</div>
 	</div>

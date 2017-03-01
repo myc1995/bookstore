@@ -94,4 +94,16 @@ public class BookService
         }
     }
 
+    public void update(Book book)
+    {
+        try
+        {
+            bookDao.update(book);
+        }
+        catch (Exception e)
+        {
+            throw new RuntimeException();
+        }
+    }
+
 }

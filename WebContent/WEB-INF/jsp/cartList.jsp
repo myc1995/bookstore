@@ -59,9 +59,7 @@
 					</tr>
 				</tfoot>
 			</table>
-			<br />
-			<br />
-			<br /> <input type="submit" value="  结算购物车  " />
+			<br /> <br /> <br /> <input type="submit" value="  结算购物车  " />
 		</form>
 
 	</div>

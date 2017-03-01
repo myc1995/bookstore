@@ -81,10 +81,26 @@
 	clear: both;
 }
 
-.m-buttongroup .l-btn:not (:first-child ):not (:last-child ){
-	border-radius: 0;
+.m-buttongroup
+ 
+.l-btn
+:not
+ 
+(
+:first-child
+ 
+)
+:not
+ 
+(
+:last-child
+ 
+){
+border-radius
+:
+ 
+0;
 }
-
 .m-buttongroup .l-btn:first-child {
 	border-top-right-radius: 0;
 	border-bottom-right-radius: 0;

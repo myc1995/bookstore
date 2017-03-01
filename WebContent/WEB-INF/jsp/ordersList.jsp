@@ -43,8 +43,8 @@
 					<td>蛋蛋，18000000001，北京 昌平区 xxx</td>
 					<td>2016-06-24 11:11:11</td>
 					<td>未支付</td>
-					<td><a href="#">支付</a><br />
-					<a href="<%=path %>/jsp/ordersDetail.jsp">订单详情</a></td>
+					<td><a href="#">支付</a><br /> <a
+						href="<%=path %>/jsp/ordersDetail.jsp">订单详情</a></td>
 				</tr>
 				<tr>
 					<td>20160520101010001</td>
@@ -53,8 +53,8 @@
 					<td>蛋蛋，18000000001，北京 昌平区 xxx</td>
 					<td>2016-05-20 10:10:10</td>
 					<td>未支付</td>
-					<td><a href="#">支付</a><br />
-					<a href="<%=path %>/jsp/ordersDetail.jsp">订单详情</a></td>
+					<td><a href="#">支付</a><br /> <a
+						href="<%=path %>/jsp/ordersDetail.jsp">订单详情</a></td>
 				</tr>
 			</tbody>
 

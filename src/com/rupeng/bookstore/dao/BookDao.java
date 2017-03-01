@@ -187,4 +187,12 @@ public class BookDao
                 book.getPress(), book.getPublishDate(), book.getWordCount(), book.getPageCount(), book.getIsbn(),
                 book.getCoverImage(), book.getDescription());
     }
+
+    public void update(Book book) throws SQLException
+    {
+        String sql = "update book set categoryId=?,name=?,price=?,author=?,publishDate=?,press=?,wordCount=?,pageCount=?,isbn=?,coverImage=?,description=? where id=?";
+        JDBCUtils.executeUpdate(sql, book.getCategoryId(), book.getName(), book.getPrice(), book.getAuthor(),
+                book.getPublishDate(), book.getPress(), book.getWordCount(), book.getPageCount(), book.getIsbn(),
+                book.getCoverImage(), book.getDescription(), book.getId());
+    }
 }

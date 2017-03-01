@@ -12,9 +12,8 @@
 		<input name="newpassword" class="easyui-textbox"
 			data-options="type:'password',required:true" /><br /> <label>重复新密码</label>
 		<input name="renewpassword" class="easyui-textbox"
-			data-options="type:'password',required:true" /><br /> <br />
-		<br /> <a href="#"
-			onclick="submitForm('userPasswordUpdateForm',false)"
+			data-options="type:'password',required:true" /><br /> <br /> <br />
+		<a href="#" onclick="submitForm('userPasswordUpdateForm',false)"
 			class="easyui-linkbutton" data-options="iconCls:'icon-edit'">使用新密码</a>
 	</form>
 

@@ -121,8 +121,7 @@
 					name="newpassword" type="password" /> <span id="newpasswordTip"></span>
 			</div>
 
-			<br />
-			<br /> <input type="submit" value="  使用新密码 " />
+			<br /> <br /> <input type="submit" value="  使用新密码 " />
 		</form>
 	</div>
 

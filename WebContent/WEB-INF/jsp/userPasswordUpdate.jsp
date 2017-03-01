@@ -50,8 +50,7 @@
 			<p>修改密码</p>
 			<span>${message }</span>
 		</div>
-		<form action="<%=path%>/user"
-			method="post">
+		<form action="<%=path%>/user" method="post">
 			<input type='hidden' name='action' value='passwordUpdateSubmit' />
 			<!-- 原密码 -->
 			<div class="text-input">
@@ -80,8 +79,7 @@
 				<span style="line-height: 10px;" id="imageCodeTip"></span>
 			</div>
 
-			<br />
-			<br /> <input type="submit" value="  使用新密码 " />
+			<br /> <br /> <input type="submit" value="  使用新密码 " />
 		</form>
 	</div>
 

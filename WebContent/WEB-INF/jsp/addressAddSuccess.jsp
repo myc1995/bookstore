@@ -1,4 +1,5 @@
-<%@ page language="java" contentType="text/html; charset=UTF-8" pageEncoding="UTF-8"%>
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+	pageEncoding="UTF-8"%>
 <%String path = request.getContextPath(); %>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
@@ -19,15 +20,15 @@
 </script>
 </head>
 <body>
-    <%@include file="/header.jsp"%>
+	<%@include file="/header.jsp"%>
 
-   <div class="main" style="width: 900px;">
-      <div class=success>
-         <a href="<%=path%>/address?action=list">添加收货地址成功，返回收货地址列表页面</a>
-         <span>5 </span>  秒后自动跳转到收货地址列表页面
-      </div>
-   </div>
+	<div class="main" style="width: 900px;">
+		<div class=success>
+			<a href="<%=path%>/address?action=list">添加收货地址成功，返回收货地址列表页面</a> <span>5
+			</span> 秒后自动跳转到收货地址列表页面
+		</div>
+	</div>
 
-    <%@include file="/footer.jsp"%>
+	<%@include file="/footer.jsp"%>
 </body>
 </html>
