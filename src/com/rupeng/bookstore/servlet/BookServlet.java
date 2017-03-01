@@ -43,6 +43,16 @@ public class BookServlet extends HttpServlet
         {
             processManagerListJson(request, response);
         }
+        else if ("managerAdd".equals(action))
+        {
+            processManagerAdd(request, response);
+        }
+    }
+
+    private void processManagerAdd(HttpServletRequest request, HttpServletResponse response)
+            throws ServletException, IOException
+    {
+        request.getRequestDispatcher("/WEB-INF/jsp/manager/bookAdd.jsp").forward(request, response);
     }
 
     private void processManagerListJson(HttpServletRequest request, HttpServletResponse response)

@@ -9,22 +9,22 @@
 		enctype="multipart/form-data">
 
 		<label>图书名称：</label> <input name="name" class="easyui-textbox"
-			data-options="required:true" /><br /> <label>作者：</label> <input
+			data-options="required:true" /><br /> <label>作&nbsp&nbsp者：</label> <input
 			name="author" class="easyui-textbox" data-options="required:true" /><br />
 
-		<label>价格：</label> <input name="price" class="easyui-numberbox"
+		<label>价&nbsp&nbsp格：</label> <input name="price" class="easyui-numberbox"
 			data-options="required:true,min:0" /><br /> <label>图书分类：</label> <input
 			name="categoryId" class="easyui-combobox"
 			data-options="required:true,valueField:'id',textField:'name',url:'<%=path%>/category?action=listJson'" /><br />
 
-		<label>出版社：</label> <input name="press" class="easyui-textbox"
+		<label>出版社&nbsp：</label> <input name="press" class="easyui-textbox"
 			data-options="required:true" /><br /> <label>出版日期：</label> <input
 			name="publishDate" class="easyui-datebox"
-			data-options="required:true" /><br /> <label>页数：</label> <input
+			data-options="required:true" /><br /> <label>页&nbsp&nbsp数：</label> <input
 			name="pageCount" class="easyui-numberbox"
-			data-options="required:true,min:0" /><br /> <label>字数：</label> <input
+			data-options="required:true,min:0" /><br /> <label>字&nbsp&nbsp数：</label> <input
 			name="wordCount" class="easyui-numberbox"
-			data-options="required:true,min:0" /><br /> <label>ISBN：</label> <input
+			data-options="required:true,min:0" /><br /> <label>ISBN&nbsp&nbsp：</label> <input
 			name="isbn" class="easyui-textbox" data-options="required:true" /><br />
 
 		<label>图书封面：</label> <input name="coverImage" class="easyui-filebox"
