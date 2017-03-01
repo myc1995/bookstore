@@ -179,4 +179,12 @@ public class BookDao
             JDBCUtils.closeAll(countRs);
         }
     }
+
+    public void add(Book book) throws SQLException
+    {
+        String sql = "insert into book (categoryId,name,price,author,press,publishDate,wordCount,pageCount,isbn,coverImage,description) values(?,?,?,?,?,?,?,?,?,?,?)";
+        JDBCUtils.executeUpdate(sql, book.getCategoryId(), book.getName(), book.getPrice(), book.getAuthor(),
+                book.getPress(), book.getPublishDate(), book.getWordCount(), book.getPageCount(), book.getIsbn(),
+                book.getCoverImage(), book.getDescription());
+    }
 }

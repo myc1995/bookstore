@@ -82,4 +82,16 @@ public class BookService
 
     }
 
+    public void add(Book book)
+    {
+        try
+        {
+            bookDao.add(book);
+        }
+        catch (Exception e)
+        {
+            throw new RuntimeException();
+        }
+    }
+
 }

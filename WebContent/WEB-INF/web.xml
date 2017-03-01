@@ -3,7 +3,7 @@
   <display-name>bookstore</display-name>
   <context-param>
     <param-name>fileuploadRootPath</param-name>
-    <param-value>H:\upload\bookstore\img</param-value>
+    <param-value>C:\Users\MYC\Pictures</param-value>
   </context-param>
   <welcome-file-list>
     <welcome-file>index.html</welcome-file>
