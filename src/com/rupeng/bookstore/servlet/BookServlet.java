@@ -64,6 +64,18 @@ public class BookServlet extends HttpServlet
         {
             processManagerUpdateJson(request, response);
         }
+        else if ("managerDeleteJson".equals(action))
+        {
+            processManagerDeleteJson(request, response);
+        }
+    }
+
+    private void processManagerDeleteJson(HttpServletRequest request, HttpServletResponse response)
+    {
+        int id = Integer.parseInt(request.getParameter("id"));
+        System.out.println(id);
+        bookService.deleteById(id);
+        Utils.sendAjaxResponse(response, new AjaxResult("success", "删除图书成功"));
     }
 
     private void processManagerUpdateJson(HttpServletRequest request, HttpServletResponse response)

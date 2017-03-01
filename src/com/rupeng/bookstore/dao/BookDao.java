@@ -195,4 +195,10 @@ public class BookDao
                 book.getPublishDate(), book.getPress(), book.getWordCount(), book.getPageCount(), book.getIsbn(),
                 book.getCoverImage(), book.getDescription(), book.getId());
     }
+
+    public void deleteById(int id) throws SQLException
+    {
+        String sql = "delete from book where id=?";
+        JDBCUtils.executeUpdate(sql, id);
+    }
 }

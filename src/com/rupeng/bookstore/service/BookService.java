@@ -106,4 +106,16 @@ public class BookService
         }
     }
 
+    public void deleteById(int id)
+    {
+        try
+        {
+            bookDao.deleteById(id);
+        }
+        catch (Exception e)
+        {
+            throw new RuntimeException();
+        }
+    }
+
 }
