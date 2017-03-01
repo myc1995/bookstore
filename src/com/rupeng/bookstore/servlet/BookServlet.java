@@ -47,6 +47,15 @@ public class BookServlet extends HttpServlet
         {
             processManagerAdd(request, response);
         }
+        else if ("managerAddJson".equals(action))
+        {
+            processManagerAddJson(request, response);
+        }
+    }
+
+    private void processManagerAddJson(HttpServletRequest request, HttpServletResponse response)
+    {
+
     }
 
     private void processManagerAdd(HttpServletRequest request, HttpServletResponse response)
